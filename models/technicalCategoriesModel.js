@@ -1,24 +1,28 @@
-<<<<<<< HEAD
-var mongoose = require('../utils/mongoose');
-=======
 var mongoose = require('../libs/mongoose');
->>>>>>> 6ebed003e9e70171eb320ff4a6fe8f90f5c3294f
 mongoose.Promise = require('bluebird');
 var Schema = mongoose.Schema;
 
 var schema = new Schema({
   updated_at: String,
   created_at: String,
-  name: String
-}, {collection : 'businessCategoriesCollection'});
+  name: String,
+  subcategories: [{
+    name: String,
+    _id: false,
+    postSubcategories: [{
+      name: String,
+      _id: false
+    }]
+  }]
+}, {collection : 'technicalCategoriesCollection'});
 
 schema.statics.create = function(categoryData) {
-  var category = new businessCategoriesModel(categoryData);
+  var category = new technicalCategoriesModel(categoryData);
   return category.save();
 };
 
 schema.statics.getAll = function() {
-  return businessCategoriesModel
+  return technicalCategoriesModel
     .find(function(err, categories){
       return categories;
     })
@@ -26,7 +30,7 @@ schema.statics.getAll = function() {
 }
 
 schema.statics.updateCategory = function(id, category) {
-  return businessCategoriesModel
+  return technicalCategoriesModel
     .findOneAndUpdate({_id: id}, category, {'new': true})
       .exec(function(err, category) {
         return category;
@@ -34,7 +38,7 @@ schema.statics.updateCategory = function(id, category) {
 }
 
 schema.statics.delete = function(id) {
-  return businessCategoriesModel.findOneAndRemove({_id: id}, function(err, category) {
+  return technicalCategoriesModel.findOneAndRemove({_id: id}, function(err, category) {
     if (err) {
       throw err;
     }
@@ -50,5 +54,5 @@ schema.pre('save', function(next) {
   next();
 });
 
-var businessCategoriesModel = mongoose.model('businessCategoriesModel', schema);
-module.exports = businessCategoriesModel;
+var technicalCategoriesModel = mongoose.model('technicalCategoriesModel', schema);
+module.exports = technicalCategoriesModel;
