@@ -5,16 +5,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var initWebpack = require('./utils/WebpackUtil');
-<<<<<<< HEAD
-var models = require('./models');
-=======
 
->>>>>>> 6ebed003e9e70171eb320ff4a6fe8f90f5c3294f
+// var models = require('./models');
+
 var app = express();
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'jade');
+app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -26,15 +24,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 initWebpack(app);
 
-<<<<<<< HEAD
+
 app.get('/*', require('./api/get'));
 app.post('/*', require('./api/post'));
 app.put('/*', require('./api/put'));
 app.delete('/*', require('./api/delete'));
 
 
-=======
->>>>>>> 6ebed003e9e70171eb320ff4a6fe8f90f5c3294f
 app.get("*", function(req, res) {
   res.sendfile(path.join(__dirname, 'public', 'index.html'));
 });

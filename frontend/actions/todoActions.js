@@ -4,24 +4,36 @@ import httpFetch from './../utils/fetch';
 
 export const addTodo = (text) => {
 
-  var url = "https://todolist-62400.firebaseio.com";
+  console.log(httpFetch('/api/todos', {
+    method: 'POST', 
+    body: {
+          completed: false,
+          text
+        }
+  }));
 
-  httpFetch(url)
-  .then((result)=> {
-    console.log(result);
-  });
+  // httpFetch(url)
+  // .then((result)=> {
+  //   console.log(result);
+  // });
 
   return dispatch => {
-    setTimeout(() => {
-      dispatch({
-        type: ADD_TODO,
-        id: uuidGenerator(),
-        completed: false,
-        startTime: new Date(),
-        text
-      })
-    }, 2000);
+    // httpFetch('/api/todos', {method: 'POST'}).then((result) => {
+    //   console.log(result);
+    //   dispatch({
+    //       type: ADD_TODO,
+    //       id: uuidGenerator(),
+    //       completed: false,
+    //       startTime: new Date(),
+    //       text
+    //     })
+    // })
+    // .catch((err) => {
+    //   console.log('err');
+    // });
   }
+
+
 
 }
 

@@ -2,9 +2,22 @@ var models = require('./../models');
 const dataHelper = require('./../utils/dataHelper');
 
 var todosController = {
-  create: function(req, res, err) {
+  createTodo: function(req, res, err) {
 
-    console.log(req.body);
+    return models.todosModel.createTodo({
+      text: req.body.text,
+      completed: req.body.completed
+    })
+    .then(function(data) {
+      return dataHelper.successCallBack(data);
+    })
+    .catch(function(err) {
+      return dataHelper.failCallBack(err);
+    })
+    .then(function(response) {
+      res.json(response);
+    });
+
     // models.todosModel
     //   .create({
     //     name: req.body.name
@@ -18,6 +31,7 @@ var todosController = {
     //   .then(function(response) {
     //     res.json(response);
     //   });
+
   },
   getAll: function(req, res, err) {
    

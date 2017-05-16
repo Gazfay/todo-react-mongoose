@@ -13,7 +13,7 @@ const httpFetch = (url, options = {method: 'GET'}) => {
       params['body'] = JSON.stringify(options.body) || {}
   }
 
-  return fetch(url)
+  return fetch(url, params)
     .then((r) => {
       console.log(r);
       return r
