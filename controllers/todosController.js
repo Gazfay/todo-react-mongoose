@@ -1,10 +1,10 @@
-var models = require('./../models');
+ var models = require('./../models');
 const dataHelper = require('./../utils/dataHelper');
 
 var todosController = {
   createTodo: function(req, res, err) {
 
-    return models.todosModel.createTodo({
+    models.todosModel.createTodo({
       text: req.body.text,
       completed: req.body.completed
     })

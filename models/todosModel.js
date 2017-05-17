@@ -13,7 +13,10 @@ var schema = new Schema({
     type: Boolean,
     required: true
   }
-}, {collection : 'todosCollection'});
+}, {
+  collection : 'todosCollection',
+  versionKey: false
+});
 
 schema.statics.createTodo = function(todoData) {
   var todo = new todosModel(todoData);

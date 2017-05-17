@@ -20,13 +20,9 @@ const httpFetch = (url, options = {method: 'GET'}) => {
     })
     .then((r) => r.json())
     .catch((r)=> {
-      console.log(r);
-      return {};
+      return r;
     });
 };
 
-
-
-window.getQuery = httpFetch;
 
 export default httpFetch;

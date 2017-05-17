@@ -1,36 +1,36 @@
 import uuidGenerator from './../utils/uuidGenerator';
 import {VISIBLE_FILTER, ADD_TODO, DELETE_TODO, TOGGLE_TODO, EDIT_TODO} from '../constants/TodoConstants';
 import httpFetch from './../utils/fetch';
+import clientDataHelper from './../utils/clientDataHelper';
 
 export const addTodo = (text) => {
 
-  console.log(httpFetch('/api/todos', {
-    method: 'POST', 
-    body: {
-          completed: false,
-          text
-        }
-  }));
-
-  // httpFetch(url)
-  // .then((result)=> {
-  //   console.log(result);
-  // });
 
   return dispatch => {
-    // httpFetch('/api/todos', {method: 'POST'}).then((result) => {
-    //   console.log(result);
-    //   dispatch({
-    //       type: ADD_TODO,
-    //       id: uuidGenerator(),
-    //       completed: false,
-    //       startTime: new Date(),
-    //       text
-    //     })
-    // })
-    // .catch((err) => {
-    //   console.log('err');
-    // });
+    httpFetch('/api/todos', {
+      method: 'POST', 
+      body: {
+        completed: false,
+        text
+      }
+    })
+    .then((response) => {
+      clientDataHelper(response, () => {
+        dispatch({
+          type: ADD_TODO,
+          id: response.data._id,
+          completed: response.data.completed,
+          startTime: response.data.created_time,
+          text: response.data.text
+        })
+      }, () => {
+
+
+      })
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
 
