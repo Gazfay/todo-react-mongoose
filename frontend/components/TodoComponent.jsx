@@ -77,7 +77,7 @@ class TodoComponent extends Component {
                 {this.renderTextFiled()}
               </div>
               <div>
-                <span>{moment(this.props.startTime).format('MM.DD.YYYY HH:mm')}</span>
+                <span>{moment(this.props.created_time).format('MM.DD.YYYY HH:mm')}</span>
                 <i className="fa fa-window-close fa-lg close-icon" aria-hidden="true" onClick={()=> {this.clickDelete(this.props.id)}}></i>
               </div>
             </div>

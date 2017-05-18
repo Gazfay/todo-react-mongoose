@@ -1,4 +1,5 @@
 var mongoose = require('../utils/mongoose');
+var idPlugin = require('mongoose-id');
 mongoose.Promise = require('bluebird');
 var Schema = mongoose.Schema;
 
@@ -18,9 +19,14 @@ var schema = new Schema({
   versionKey: false
 });
 
+schema.plugin(idPlugin);
+
+
 schema.statics.createTodo = function(todoData) {
   var todo = new todosModel(todoData);
-  return todo.save();
+  return todo.save(function(err) {
+    if (err) return err;
+  });
 };
 
 schema.statics.getAllTodos = function() {
@@ -42,11 +48,9 @@ schema.statics.updateTodo = function(id, todo) {
 }
 
 schema.statics.deleteTodo = function(id) {
-  return businessCategoriesModel
-    .findOneAndRemove({_id: id}, function(err, category) {
-    if (err) {
-      throw err;
-    }
+  return todosModel
+    .findOneAndRemove({_id: id}, function(err, todo) {
+      if (err) return err;
   });
 }
 
@@ -61,6 +65,8 @@ schema.pre('save', function(next) {
 
   next();
 });
+
+
 
 var todosModel = mongoose.model('todosModel', schema);
 module.exports = todosModel;

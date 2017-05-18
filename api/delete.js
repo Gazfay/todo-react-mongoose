@@ -7,4 +7,6 @@ var router = express.Router();
 // router.delete('/api/businessCategories.delete/:id', controllers.businessCategoriesCtrl.deleteCategory);
 // router.delete('/api/worksStorage.delete/:id', controllers.worksStorageCtrl.deleteWork);
 
+router.delete('/api/todos/:id', controllers.todosController.deleteTodo);
+
 module.exports = router;

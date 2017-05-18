@@ -33,8 +33,33 @@ var todosController = {
     //   });
 
   },
-  getAll: function(req, res, err) {
+
+  getAllTodos: function(req, res, err) {
+
+    models.todosModel.getAllTodos()
+    .then(function(data) {
+      return dataHelper.successCallBack(data);
+    })
+    .catch(function(err) {
+      return dataHelper.failCallBack(err);
+    })
+    .then(function(response) {
+      res.json(response);
+    });
    
+  },
+
+  deleteTodo: function(req, res, err) {
+    models.todosModel.deleteTodo(req.params.id)
+    .then(function(data) {
+      return dataHelper.successCallBack(data);
+    })
+    .catch(function(err) {
+      return dataHelper.failCallBack(err);
+    })
+    .then(function(response) {
+      res.json(response);
+    });
   }
 }
 

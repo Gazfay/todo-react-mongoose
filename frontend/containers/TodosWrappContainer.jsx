@@ -2,24 +2,32 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import TodoListComponent from './../components/TodoListComponent.jsx';
 import TodosWrappComponent from './../components/TodosWrappComponent.jsx';
-import {addTodo, toggleTodo, deleteTodo, setVisibleFilter, editTodo} from './../actions/todoActions';
-
-class TodosWrappContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-}
+import {getTodos, addTodo, toggleTodo, deleteTodo, setVisibleFilter, editTodo} from './../actions/todoActions';
 
 const getVisibleTodos = (todos, filter) => {
+  let resultTodos;
+
   switch (filter) {
     case 'SHOW_ALL':
-      return todos
+      resultTodos = todos;
+      break;
     case 'SHOW_ACTIVE':
-      return todos.filter(todo => !todo.completed);
+      resultTodos = todos.filter(todo => !todo.completed);
+      break;
     case 'SHOW_COMPLETED':
-      return todos.filter(todo => todo.completed);
+      resultTodos = todos.filter(todo => todo.completed);
+      break;
   }
+
+  function getTodoTime(todo) {
+    var time;
+    (todo.updated_time)? time = todo.updated_time : time = todo.created_time;
+    return time;
+  }
+
+  return resultTodos.sort((a,b) => {
+    return new Date(b.created_time).getTime() - new Date(a.created_time).getTime();
+  });
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -31,6 +39,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getTodos:() => {
+      dispatch(getTodos());
+    },
     addTodo:(text) => {
       dispatch(addTodo(text));
     },

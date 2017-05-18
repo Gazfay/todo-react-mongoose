@@ -1,19 +1,24 @@
-import {ADD_TODO, DELETE_TODO, TOGGLE_TODO, EDIT_TODO} from '../constants/TodoConstants';
+import {GET_TODOS, ADD_TODO, DELETE_TODO, TOGGLE_TODO, EDIT_TODO} from '../constants/TodoConstants';
 
 
 const initialState = [];
 
 export default function todosReducer(state = initialState, action = {type: ''}) {
   switch (action.type) {
+
+    case GET_TODOS:
+      state = action.todos;
+      return state;
+
     case ADD_TODO:
       return [
-          ...state,
           {
             text: action.text,
             id: action.id,
             completed: action.completed,
-            startTime: action.startTime
-          }
+            created_time: action.created_time
+          },
+          ...state
         ];
 
     case DELETE_TODO:
