@@ -1,30 +1,48 @@
 import uuidGenerator from './../utils/uuidGenerator';
-import {VISIBLE_FILTER, ADD_TODO, GET_TODOS, DELETE_TODO, TOGGLE_TODO, EDIT_TODO} from '../constants/TodoConstants';
+import {VISIBLE_FILTER, REQUEST_TODOS, ADD_TODO, GET_TODOS, DELETE_TODO, TOGGLE_TODO, EDIT_TODO} from '../constants/TodoConstants';
 import httpFetch from './../utils/fetch';
 import clientDataHelper from './../utils/clientDataHelper';
 
 
 export const getTodos = () => {
   return dispatch => {
+    dispatch({
+      type: REQUEST_TODOS,
+      loading: true
+    });
+
     httpFetch('/api/todos')
     .then((response) => {
       clientDataHelper(response, () => {
+
         dispatch({
           type: GET_TODOS,
           todos:response.data
-        })
+        });
+
+        dispatch({
+          type: REQUEST_TODOS,
+          loading: false
+        });
+
       }, () => {
-        console.erro('Error get todos');
+        console.error(response, 'Error get todos');
       })
     })
     .catch((err) => {
       console.log(err);
+
+      dispatch({
+        type: REQUEST_TODOS,
+        loading: false
+      });
     });
   }
 }
 
 export const addTodo = (text) => {
   return dispatch => {
+
     httpFetch('/api/todos', {
       method: 'POST', 
       body: {
@@ -40,9 +58,9 @@ export const addTodo = (text) => {
           completed: response.data.completed,
           created_time: response.data.created_time,
           text: response.data.text
-        })
+        });
       }, () => {
-        console.erro('Error add todo');
+        console.error(response.err, 'Error add todo');
       })
     })
     .catch((err) => {
@@ -64,18 +82,13 @@ export const deleteTodo = (id) => {
           id
         })
       }, () => {
-        console.erro('Error delete todo');
+        console.error(response, 'Error delete todo');
       })
     })
     .catch((err) => {
       console.log(err);
     });
   }
-
-  // return {
-  //   type: DELETE_TODO,
-  //   id
-  // }
 }
 
 export const setVisibleFilter = (filter) => {
@@ -85,17 +98,54 @@ export const setVisibleFilter = (filter) => {
   }
 }
 
-export const toggleTodo = (id) => {
-  return {
-    type: TOGGLE_TODO,
-    id
+export const toggleTodo = (id, completed) => {
+  return dispatch => {
+    httpFetch(`/api/todos/${id}`, {
+      method: 'PUT',
+      body: {
+        completed
+      }
+    })
+    .then((response) => {
+      clientDataHelper(response, () => {
+        dispatch({
+          type: TOGGLE_TODO,
+          id: response.data.id,
+          completed: response.data.completed,
+          updated_time: response.data.updated_time
+        })
+      }, () => {
+        console.error(response.err, 'Error add todo');
+      })
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 }
 
 export const editTodo = (id, text) => {
-  return {
-    type: EDIT_TODO,
-    id,
-    text
+  return dispatch => {
+    httpFetch(`/api/todos/${id}`, {
+      method: 'PUT',
+      body: {
+        text
+      }
+    })
+    .then((response) => {
+      clientDataHelper(response, () => {
+        dispatch({
+          type: EDIT_TODO,
+          id: response.data.id,
+          text: response.data.text,
+          updated_time: response.data.updated_time
+        })
+      }, () => {
+        console.error(response.err, 'Error add todo');
+      })
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 }

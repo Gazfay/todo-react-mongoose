@@ -1,11 +1,11 @@
-var webpack = require('webpack')
-var webpackDevMiddleware = require('webpack-dev-middleware')
-var webpackHotMiddleware = require('webpack-hot-middleware')
-var config = require('./../webpack.config');
+const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpackHotMiddleware = require('webpack-hot-middleware')
+const config = require('./../webpack.config');
 
 function initWebpack(app) {
 
-  var compiler = webpack(config);
+  const compiler = webpack(config);
   app.use(webpackDevMiddleware(compiler, 
     { 
       publicPath: config.output.publicPath,

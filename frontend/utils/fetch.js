@@ -15,7 +15,6 @@ const httpFetch = (url, options = {method: 'GET'}) => {
 
   return fetch(url, params)
     .then((r) => {
-      console.log(r);
       return r
     })
     .then((r) => r.json())

@@ -32,8 +32,9 @@ const getVisibleTodos = (todos, filter) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    todos: getVisibleTodos(state.todos, state.filter),
-    filter: state.filter
+    todos: getVisibleTodos(state.todos.todos, state.filter),
+    filter: state.filter,
+    loading: state.todos.loading
   }
 }
 
@@ -45,8 +46,8 @@ const mapDispatchToProps = (dispatch) => {
     addTodo:(text) => {
       dispatch(addTodo(text));
     },
-    toggleTodo:(id) =>{
-      dispatch(toggleTodo(id));
+    toggleTodo:(id, completed) =>{
+      dispatch(toggleTodo(id, completed));
     },
     deleteTodo:(id) => {
       dispatch(deleteTodo(id));

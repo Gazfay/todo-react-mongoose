@@ -1,9 +1,9 @@
-var mongoose = require('../utils/mongoose');
-var idPlugin = require('mongoose-id');
+const mongoose = require('../utils/mongoose');
+const idPlugin = require('mongoose-id');
 mongoose.Promise = require('bluebird');
-var Schema = mongoose.Schema;
+let Schema = mongoose.Schema;
 
-var schema = new Schema({
+let schema = new Schema({
   updated_time: Date,
   created_time: Date,
   text: {
@@ -22,14 +22,14 @@ var schema = new Schema({
 schema.plugin(idPlugin);
 
 
-schema.statics.createTodo = function(todoData) {
-  var todo = new todosModel(todoData);
+schema.statics.createTodo = (todoData) => {
+  let todo = new todosModel(todoData);
   return todo.save(function(err) {
     if (err) return err;
   });
 };
 
-schema.statics.getAllTodos = function() {
+schema.statics.getAllTodos = () => {
   return todosModel
     .find()
     .exec(function(err, todos) {
@@ -38,8 +38,8 @@ schema.statics.getAllTodos = function() {
     });
 }
 
-schema.statics.updateTodo = function(id, todo) {
-  return businessCategoriesModel
+schema.statics.updateTodo = (id, todo) => {
+  return todosModel
     .findOneAndUpdate({_id: id}, todo, {'new': true})
     .exec(function(err, todo) {
       if (err) return err;
@@ -47,15 +47,15 @@ schema.statics.updateTodo = function(id, todo) {
     });
 }
 
-schema.statics.deleteTodo = function(id) {
+schema.statics.deleteTodo = (id) => {
   return todosModel
     .findOneAndRemove({_id: id}, function(err, todo) {
       if (err) return err;
   });
 }
 
-schema.pre('save', function(next) {
-  var currentDate = Date.now();
+schema.pre('save', (next) => {
+  let currentDate = Date.now();
 
   if (!this.created_time){
     this.created_time = currentDate;
@@ -68,5 +68,5 @@ schema.pre('save', function(next) {
 
 
 
-var todosModel = mongoose.model('todosModel', schema);
+const todosModel = mongoose.model('todosModel', schema);
 module.exports = todosModel;

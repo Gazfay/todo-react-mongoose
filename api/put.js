@@ -1,11 +1,9 @@
-var controllers = require('./../controllers');
-var models = require('./../models');
-var express = require('express');
-var router = express.Router();
+const controllers = require('./../controllers');
+const models = require('./../models');
+const express = require('express');
+const router = express.Router();
 
-
-
-// router.post("/api/todos", controllers.todosController.createTodo);
+router.put("/api/todos/:id", controllers.todosController.updateTodo);
 
 
 module.exports = router;

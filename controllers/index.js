@@ -1,7 +1,3 @@
-var todosController = require('./todosController');
-
-var controllers = {
-  todosController: todosController
+module.exports = {
+  todosController: require('./todosController')
 }
-
-module.exports = controllers;

@@ -4,7 +4,7 @@ import AddInputComponent from './AddInputComponent.jsx';
 import FilterComponent from './FilterComponent.jsx';
 
 
-const TodosWrappComponent = ({getTodos, todos, addTodo, toggleTodo, deleteTodo, setVisibleFilter, filter, editTodo}) => {
+const TodosWrappComponent = ({getTodos, todos, addTodo, toggleTodo, deleteTodo, setVisibleFilter, filter, editTodo, loading}) => {
   return (
     <div>
       <AddInputComponent addTodo={addTodo} />
@@ -15,6 +15,7 @@ const TodosWrappComponent = ({getTodos, todos, addTodo, toggleTodo, deleteTodo, 
         toggleTodo={toggleTodo} deleteTodo={deleteTodo} 
         filter={filter} 
         editTodo={editTodo} 
+        loading={loading}
       />
     </div>
   )

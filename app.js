@@ -1,14 +1,14 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var initWebpack = require('./utils/WebpackUtil');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const initWebpack = require('./utils/WebpackUtil');
 
-// var models = require('./models');
+// const models = require('./models');
 
-var app = express();
+const app = express();
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -24,26 +24,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 initWebpack(app);
 
-
 app.get('/*', require('./api/get'));
 app.post('/*', require('./api/post'));
 app.put('/*', require('./api/put'));
 app.delete('/*', require('./api/delete'));
 
 
-app.get("*", function(req, res) {
-  res.sendfile(path.join(__dirname, 'public', 'index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

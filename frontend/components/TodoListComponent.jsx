@@ -12,7 +12,9 @@ class TodoListComponent extends Component {
   }
 
   renderTodos(todos) {
-    if (!!todos.length) {
+    if (this.props.loading === true) {
+      return (<li className="no-todos">Loading...</li>)
+    } else if (!!todos.length) {
       todos.filter((todo) => {
         if (this.props.filter == 'SHOW_ALL'){
           return todo;

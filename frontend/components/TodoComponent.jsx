@@ -19,7 +19,7 @@ class TodoComponent extends Component {
   }
 
   changeToggle(id) {
-    this.props.toggleTodo(id);
+    this.props.toggleTodo(id, !this.props.completed);
   }
 
   clickDelete(id) {
