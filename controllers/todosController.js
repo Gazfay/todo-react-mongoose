@@ -3,15 +3,16 @@ const dataHelper = require('./../utils/dataHelper');
 
 let todosController = {
   createTodo: (req, res, err) => {
-    console.log(req.body);
     models.todosModel.createTodo(req.body)
     .then(function(data) {
+      console.log(data);
       return dataHelper.successCallBack(data);
     })
     .catch(function(err) {
       return dataHelper.failCallBack(err);
     })
     .then(function(response) {
+      console.log(response);
       res.json(response);
     });
   },

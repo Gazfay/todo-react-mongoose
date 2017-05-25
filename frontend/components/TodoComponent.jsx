@@ -16,6 +16,7 @@ class TodoComponent extends Component {
     this.changeEditing = this.changeEditing.bind(this);
     this.changeTextTodo = this.changeTextTodo.bind(this);
     this.saveEditingText = this.saveEditingText.bind(this);
+    this.renderUpdateIcon = this.renderUpdateIcon.bind(this);
   }
 
   changeToggle(id) {
@@ -41,9 +42,19 @@ class TodoComponent extends Component {
     this.setState({text: e.target.value});
   }
 
+  renderUpdateIcon() {
+    console.log(new Date(this.props.createdAt).getTime() != new Date(this.props.updatedAt).getTime(), 'reupdate');
+    if (new Date(this.props.createdAt).getTime() != new Date(this.props.updatedAt).getTime()) {
+      return (
+        <i className="fa fa-pencil update-pencil" aria-hidden="true"></i>
+      )
+    } 
+  }
+
   saveEditingText(e) {
     e.preventDefault();
-    if (this.state.text !== '') {
+    console.log(this.state.text.trim());
+    if (this.state.text.trim() !== '') {
       this.props.editTodo(this.props.id, this.state.text);
       this.setState({editing: false});
     }
@@ -77,7 +88,8 @@ class TodoComponent extends Component {
                 {this.renderTextFiled()}
               </div>
               <div>
-                <span>{moment(this.props.created_time).format('MM.DD.YYYY HH:mm')}</span>
+                {this.renderUpdateIcon()}
+                <span>{moment(this.props.createdAt).format('MM.DD.YYYY HH:mm')}</span>
                 <i className="fa fa-window-close fa-lg close-icon" aria-hidden="true" onClick={()=> {this.clickDelete(this.props.id)}}></i>
               </div>
             </div>

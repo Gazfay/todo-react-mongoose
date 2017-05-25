@@ -7728,3 +7728,7 @@ button:focus {
 #root {
   min-width: 600px;
 }
+
+.update-pencil {
+  margin-right: 5px;
+}

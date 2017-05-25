@@ -19,14 +19,9 @@ const getVisibleTodos = (todos, filter) => {
       break;
   }
 
-  function getTodoTime(todo) {
-    var time;
-    (todo.updated_time)? time = todo.updated_time : time = todo.created_time;
-    return time;
-  }
 
   return resultTodos.sort((a,b) => {
-    return new Date(b.created_time).getTime() - new Date(a.created_time).getTime();
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });
 }
 

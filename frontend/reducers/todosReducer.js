@@ -33,7 +33,7 @@ export default function todosReducer(state = initialState, action = {type: ''}) 
       });
 
     case DELETE_TODO:
-      var copyiedStateTodos = state.todos.slice();
+      let copyiedStateTodos = state.todos.slice();
 
       copyiedStateTodos.some((todo, index) => {
         if (todo.id == action.id) {
@@ -55,7 +55,7 @@ export default function todosReducer(state = initialState, action = {type: ''}) 
           if (todo.id == action.id) {
             return Object.assign({}, todo, {
               completed: action.completed,
-              updated_time: action.updated_time
+              updatedAt: updatedAt
             });
           } else {
             return todo;
@@ -69,7 +69,8 @@ export default function todosReducer(state = initialState, action = {type: ''}) 
         todos: state.todos.map((todo, index) => {
           if (todo.id == action.id) {
             return Object.assign({}, todo, {
-              text: action.text
+              text: action.text,
+              updatedAt: action.updatedAt
             });
           } else {
             return todo;

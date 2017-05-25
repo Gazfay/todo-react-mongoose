@@ -51,12 +51,14 @@ export const addTodo = (text) => {
       }
     })
     .then((response) => {
+      console.log(response);
       clientDataHelper(response, () => {
         dispatch({
           type: ADD_TODO,
           id: response.data.id,
           completed: response.data.completed,
-          created_time: response.data.created_time,
+          createdAt: response.data.createdAt,
+          updatedAt: response.data.updatedAt,
           text: response.data.text
         });
       }, () => {
@@ -112,7 +114,7 @@ export const toggleTodo = (id, completed) => {
           type: TOGGLE_TODO,
           id: response.data.id,
           completed: response.data.completed,
-          updated_time: response.data.updated_time
+          updatedAt: response.data.updatedAt
         })
       }, () => {
         console.error(response.err, 'Error add todo');
@@ -138,7 +140,7 @@ export const editTodo = (id, text) => {
           type: EDIT_TODO,
           id: response.data.id,
           text: response.data.text,
-          updated_time: response.data.updated_time
+          updatedAt: response.data.updatedAt
         })
       }, () => {
         console.error(response.err, 'Error add todo');

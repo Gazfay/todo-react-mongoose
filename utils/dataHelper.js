@@ -2,7 +2,7 @@ const dataHelper = {
   successCallBack:(data) => {
     return {
       ok: true,
-      data: data
+      data
     }
   },
   failCallBack:(err) => {

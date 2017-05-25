@@ -16,7 +16,8 @@ let schema = new Schema({
   }
 }, {
   collection : 'todosCollection',
-  versionKey: false
+  versionKey: false,
+  timestamps: true
 });
 
 schema.plugin(idPlugin);
@@ -24,9 +25,7 @@ schema.plugin(idPlugin);
 
 schema.statics.createTodo = (todoData) => {
   let todo = new todosModel(todoData);
-  return todo.save(function(err) {
-    if (err) return err;
-  });
+  return todo.save();
 };
 
 schema.statics.getAllTodos = () => {
@@ -54,17 +53,10 @@ schema.statics.deleteTodo = (id) => {
   });
 }
 
-schema.pre('save', (next) => {
-  let currentDate = Date.now();
-
-  if (!this.created_time){
-    this.created_time = currentDate;
-  } else if (this.created_time) {
-    this.updated_time = currentDate;
-  }
-
-  next();
-});
+// Pre save hook
+// schema.pre('save', function(next) {
+//   next();
+// });
 
 
 
