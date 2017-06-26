@@ -53,12 +53,6 @@ schema.statics.deleteTodo = (id) => {
   });
 }
 
-// Pre save hook
-// schema.pre('save', function(next) {
-//   next();
-// });
-
-
 
 const todosModel = mongoose.model('todosModel', schema);
 module.exports = todosModel;
